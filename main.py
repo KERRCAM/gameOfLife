@@ -16,7 +16,10 @@ def update(screen, cells, size, with_progress=False):
 
     for row, col in np.ndindex(cells.shape):
         alive = np.sum(cells[row-1:row+2, col-1:col+2]) - cells[row, col]
-        color = COLOR_BG if cells[row, col] == 0 else COLOR_ALIVE_NEXT
+        if cells[row, col] == 0:
+            color = COLOR_BG
+        else:
+            color = COLOR_ALIVE_NEXT
 
         if cells[row, col] == 1:
             if alive < 2 or alive > 3:
@@ -39,9 +42,9 @@ def update(screen, cells, size, with_progress=False):
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((1800, 1000))
 
-    cells = np.zeros((60, 80))
+    cells = np.zeros((100, 180))
     screen.fill(COLOR_GRID)
     update(screen, cells, 10)
 
